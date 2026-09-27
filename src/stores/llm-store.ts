@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { ipc } from '../services/ipc-client'
+import { applyLanguagePolicyToMessages } from '../services/llm-language-policy'
 import type { ModelProfile, LLMResponse, TokenUsage } from '../shared/ipc-channels'
 import i18n from '../i18n'
 
@@ -121,9 +122,10 @@ export const useLLMStore = create<LLMState>()((set, get) => ({
   generate: async (messages, modelId, options) => {
     const mid = modelId ?? get().defaultModelId
     if (!mid) return { success: false, content: '', error: i18n.t('llm.noDefaultModel', { ns: 'stores' }) }
+    const outboundMessages = applyLanguagePolicyToMessages(messages, i18n.resolvedLanguage || i18n.language)
     return ipc.invoke('llm:generate', {
       modelId: mid,
-      messages,
+      messages: outboundMessages,
       responseFormat: options?.responseFormat as { type: 'json_object' | 'text' } | undefined,
       thinking: options?.thinking
     })
@@ -135,6 +137,7 @@ export const useLLMStore = create<LLMState>()((set, get) => ({
       callbacks.onError?.(i18n.t('llm.noDefaultModel', { ns: 'stores' }))
       return ''
     }
+    const outboundMessages = applyLanguagePolicyToMessages(messages, i18n.resolvedLanguage || i18n.language)
 
     const requestId = crypto.randomUUID()
 
@@ -176,7 +179,7 @@ export const useLLMStore = create<LLMState>()((set, get) => ({
     // 发起流式请求
     const startRes = (await ipc.invoke('llm:generate-stream', requestId, {
       modelId: mid,
-      messages,
+      messages: outboundMessages,
       stream: true,
       responseFormat: options?.responseFormat as { type: 'json_object' | 'text' } | undefined,
       thinking: options?.thinking

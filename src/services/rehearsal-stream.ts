@@ -1,4 +1,6 @@
 import { ipc } from './ipc-client'
+import i18n from '../i18n'
+import { applyLanguagePolicyToMessages } from './llm-language-policy'
 import type { RehearsalMessages } from '../shared/story-rehearsal'
 
 /** A request owns its listeners, timeout and cancellation, including late IPC acknowledgement. */
@@ -56,8 +58,9 @@ export function streamRehearsal(
         cancel()
       }, 180000)
       if (signal.aborted) { abort(); return }
+      const outboundMessages = applyLanguagePolicyToMessages(messages, i18n.resolvedLanguage || i18n.language)
       void ipc.invoke('llm:generate-stream', requestId, {
-        modelId, messages, maxTokens: options.maxTokens ?? 16384, thinking: false,
+        modelId, messages: outboundMessages, maxTokens: options.maxTokens ?? 16384, thinking: false,
         ...(options.structured ? { responseFormat: { type: 'json_object' } } : {}),
       })
         .then(result => {

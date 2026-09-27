@@ -1,0 +1,50 @@
+{
+  "welcome": {
+    "title": "歡迎使用 Vela",
+    "subtitle": "AI 深度驅動的小說創作 IDE",
+    "newProject": "新建項目",
+    "newProjectDesc": "創建一部新的小說",
+    "openProject": "打開項目",
+    "openProjectDesc": "打開已有 Vela 項目",
+    "importNovel": "導入小說",
+    "importNovelDesc": "導入已有作品續寫",
+    "recentProjects": "最近項目",
+    "footer": "Vela v0.1.0 · 七階段 AI 驅動創作流水線 · 本地化數據安全"
+  },
+  "knowledge": {
+    "title": "知識庫概覽",
+    "noDocuments": "暫無文檔",
+    "importPrompt": "導入文檔以開始使用知識庫"
+  },
+  "knowledgeOverview": {
+    "title": "知識庫",
+    "description": "基於 LanceDB 的本地向量數據庫，定稿後自動入庫，為 AI 寫作提供語義檢索上下文",
+    "openProjectFirst": "請先打開項目",
+    "docCount": "文檔數量",
+    "chunkCount": "知識切片",
+    "engine": "存儲引擎",
+    "searchMode": "檢索模式",
+    "ftsVector": "FTS+向量",
+    "ftsOnly": "FTS",
+    "hybrid": "混合",
+    "basic": "基礎",
+    "hybridSearch": "混合檢索",
+    "bm25Search": "BM25 全文檢索",
+    "indexUpgrade": "向量索引待升級",
+    "vectorlessCount": "{{count}} 個文本塊尚未生成向量嵌入，升級後可啟用語義檢索增強",
+    "rebuilding": "重建中...",
+    "rebuildIndex": "重建向量索引",
+    "rebuildSuccess": "向量索引重建完成：已處理 {{processed}} 塊{{failed}}",
+    "failedCount": "，{{count}} 塊失敗",
+    "rebuildFailed": "向量回填失敗",
+    "semanticSearch": "語義檢索",
+    "hybridHint": "BM25 + 向量近鄰融合",
+    "basicHint": "配置 Embedding 模型後自動升級為混合檢索",
+    "searchPlaceholder": "輸入查詢內容，如：主角的能力體系、世界觀核心設定...",
+    "search": "檢索",
+    "searchResults": "檢索結果 ({{count}} 條)",
+    "clear": "清除",
+    "fullTextMatch": "全文匹配",
+    "similarity": "相似度 {{score}}%"
+  }
+}

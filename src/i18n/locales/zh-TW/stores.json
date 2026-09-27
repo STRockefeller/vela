@@ -1,0 +1,46 @@
+{
+  "workflow": {
+    "started": "🚀 工作流「{{title}}」已啟動",
+    "cancelled": "⏹ 工作流「{{title}}」已取消",
+    "stepRunning": "▶ [{{title}}] 執行步驟: {{step}}",
+    "stepComplete": "✅ [{{title}}] 步驟完成: {{step}}",
+    "waitingConfirm": "⏸ [{{title}}] 等待確認繼續第 {{index}} 步：{{nextStep}}",
+    "stepFailed": "❌ [{{title}}] 步驟失敗: {{step}} — {{error}}",
+    "completed": "🎉 工作流「{{title}}」已完成",
+    "onCompleteFailed": "⚠️ onComplete 執行失敗: {{error}}",
+    "allCancelled": "⏹ 所有工作流已取消"
+  },
+  "project": {
+    "timeout": "[{{label}}] 超時 ({{ms}}ms)",
+    "unknownError": "未知錯誤",
+    "createFailed": "創建項目失敗",
+    "createError": "創建項目異常",
+    "openFailed": "打開項目失敗",
+    "openError": "打開項目異常"
+  },
+  "llm": {
+    "noDefaultModel": "未配置默認模型",
+    "modelNotFound": "模型不存在或未配置，請檢查模型設置",
+    "connectionFailed": "連接失敗"
+  },
+  "agentEngine": {
+    "timeout": "工具執行超時（{{seconds}}s）",
+    "workflowCancelled": "工作流已取消",
+    "streamFailed": "流式生成失敗",
+    "noModel": "未配置默認 AI 模型"
+  },
+  "guard": {
+    "openProjectFirst": "請先打開或新建一個項目。",
+    "fillNovelConfig": "請先填寫「小說配置」中的核心大綱或主角人設，AI 才能據此生成故事架構。\n\n當前類型：{{genre}}",
+    "premiseNotGenerated": "「故事前提」尚未生成，它是章節藍圖的基礎。\n\n請先在「故事架構」中點擊「AI 生成架構」，生成故事前提後再來生成章節藍圖。",
+    "missingArchitecture": "注意：以下架構信息尚未生成，藍圖質量可能受影響：\n{{items}}\n\n建議先生成完整架構，或繼續使用現有內容。",
+    "noCharacterCards": "角色卡不存在（數據庫中沒有角色記錄）。\n\n請先在「故事架構」中生成角色圖譜（會自動創建角色卡），或在「角色管理」中手動創建角色卡。",
+    "noBlueprints": "尚未生成章節藍圖（數據庫為空）。\n\n請先在「章節藍圖」中點擊「AI 生成藍圖」，讓 AI 規劃每章內容後，再回來寫稿。",
+    "prevChapterNotFinalized": "上下文缺失：第 {{chapter}} 章尚未定稿！\n\n為了保證 AI 寫稿時能讀取到連貫的上下文（前章結尾和劇情要點），請必須先前往草稿箱完成第 {{chapter}} 章的定稿操作。",
+    "prevPostProcessIncomplete": "第 {{chapter}} 章的定稿後處理未完成！\n\n以下關鍵步驟失敗：\n{{steps}}\n\n請先在草稿箱中點擊「修復定稿」按鈕補全數據，否則後續章節的 AI 上下文將不完整。",
+    "characterCannotRegenerate": "已有章節藍圖，角色卡不可重新生成。\n\n藍圖生成已依賴角色數據，重新生成角色卡會導致現有藍圖和已寫章節全部失效。\n如需修改角色，請手動編輯現有角色卡。",
+    "noFinalizedChapters": "尚無已定稿章節，無法執行修復操作。",
+    "canOnlyRepairLatest": "只允許修復最新定稿章節（第 {{chapter}} 章）的後處理。\n\n回溯修復第 {{target}} 章會破壞角色狀態的線性演化鏈。",
+    "characterCardsMissingForWrite": "角色卡不存在（數據庫中沒有角色記錄）。\n\nAI 寫稿需要角色狀態作為上下文，請先在「故事架構」中生成角色圖譜，或在「角色管理」中手動創建角色卡。"
+  }
+}

@@ -11,6 +11,16 @@ import zhCNStores from './locales/zh-CN/stores.json'
 import zhCNSettings from './locales/zh-CN/settings.json'
 import zhCNCommands from './locales/zh-CN/commands.json'
 
+import zhTWCommon from './locales/zh-TW/common.json'
+import zhTWDialogs from './locales/zh-TW/dialogs.json'
+import zhTWEditors from './locales/zh-TW/editors.json'
+import zhTWPanels from './locales/zh-TW/panels.json'
+import zhTWLayout from './locales/zh-TW/layout.json'
+import zhTWPages from './locales/zh-TW/pages.json'
+import zhTWStores from './locales/zh-TW/stores.json'
+import zhTWSettings from './locales/zh-TW/settings.json'
+import zhTWCommands from './locales/zh-TW/commands.json'
+
 import enCommon from './locales/en/common.json'
 import enDialogs from './locales/en/dialogs.json'
 import enEditors from './locales/en/editors.json'
@@ -45,6 +55,17 @@ const i18nConfig: Parameters<typeof i18n.init>[0] = {
       stores: zhCNStores,
       settings: zhCNSettings,
       commands: zhCNCommands,
+    },
+    'zh-TW': {
+      common: zhTWCommon,
+      dialogs: zhTWDialogs,
+      editors: zhTWEditors,
+      panels: zhTWPanels,
+      layout: zhTWLayout,
+      pages: zhTWPages,
+      stores: zhTWStores,
+      settings: zhTWSettings,
+      commands: zhTWCommands,
     },
     en: {
       common: enCommon,
@@ -99,11 +120,12 @@ i18n.init(i18nConfig)
 // Update HTML lang attribute when language changes (browser only)
 if (isBrowser) {
   i18n.on('languageChanged', (lng) => {
-    document.documentElement.lang = lng === 'ru' ? 'ru' : lng === 'en' ? 'en' : 'zh-CN'
+    document.documentElement.lang = lng === 'ru' ? 'ru' : lng === 'en' ? 'en' : lng === 'zh-TW' ? 'zh-TW' : 'zh-CN'
     const titles: Record<string, string> = {
       'ru': 'Vela — ИИ-редактор для написания романов',
       'en': 'Vela — AI Novel Writing IDE',
       'zh-CN': 'Vela — AI 小说创作 IDE',
+      'zh-TW': 'Vela — AI 小說創作 IDE',
     }
     document.title = titles[lng] || titles['zh-CN']
   })

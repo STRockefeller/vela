@@ -43,6 +43,16 @@ import ruStores from '../locales/ru/stores.json'
 import ruSettings from '../locales/ru/settings.json'
 import ruCommands from '../locales/ru/commands.json'
 
+import zhTWCommon from '../locales/zh-TW/common.json'
+import zhTWDialogs from '../locales/zh-TW/dialogs.json'
+import zhTWEditors from '../locales/zh-TW/editors.json'
+import zhTWPanels from '../locales/zh-TW/panels.json'
+import zhTWLayout from '../locales/zh-TW/layout.json'
+import zhTWPages from '../locales/zh-TW/pages.json'
+import zhTWStores from '../locales/zh-TW/stores.json'
+import zhTWSettings from '../locales/zh-TW/settings.json'
+import zhTWCommands from '../locales/zh-TW/commands.json'
+
 const NAMESPACES = ['common', 'dialogs', 'editors', 'panels', 'layout', 'pages', 'stores', 'settings', 'commands'] as const
 
 const ZH_CN_FILES: Record<string, Record<string, unknown>> = {
@@ -79,6 +89,18 @@ const RU_FILES: Record<string, Record<string, unknown>> = {
   stores: ruStores,
   settings: ruSettings,
   commands: ruCommands,
+}
+
+const ZH_TW_FILES: Record<string, Record<string, unknown>> = {
+  common: zhTWCommon,
+  dialogs: zhTWDialogs,
+  editors: zhTWEditors,
+  panels: zhTWPanels,
+  layout: zhTWLayout,
+  pages: zhTWPages,
+  stores: zhTWStores,
+  settings: zhTWSettings,
+  commands: zhTWCommands,
 }
 
 // Helper: recursively collect all leaf keys from a nested object
@@ -128,15 +150,20 @@ describe('i18n Initialization', () => {
 
 describe('Translation Key Completeness', () => {
   for (const ns of NAMESPACES) {
-    it(`${ns}: zh-CN, en, and ru should have the same keys`, () => {
+    it(`${ns}: zh-CN, zh-TW, en, and ru should have the same keys`, () => {
       const zhKeys = getLeafKeys(ZH_CN_FILES[ns]).sort()
+      const zhTWKeys = getLeafKeys(ZH_TW_FILES[ns]).sort()
       const enKeys = getLeafKeys(EN_FILES[ns]).sort()
       const ruKeys = getLeafKeys(RU_FILES[ns]).sort()
 
+      const missingInZhTW = zhKeys.filter(k => !zhTWKeys.includes(k))
       const missingInEn = zhKeys.filter(k => !enKeys.includes(k))
       const missingInRu = zhKeys.filter(k => !ruKeys.includes(k))
       const missingInZh = enKeys.filter(k => !zhKeys.includes(k))
 
+      if (missingInZhTW.length > 0) {
+        console.error(`${ns}: Missing keys in zh-TW: ${missingInZhTW.join(', ')}`)
+      }
       if (missingInEn.length > 0) {
         console.error(`${ns}: Missing keys in en: ${missingInEn.join(', ')}`)
       }
@@ -147,6 +174,7 @@ describe('Translation Key Completeness', () => {
         console.error(`${ns}: Missing keys in zh-CN: ${missingInZh.join(', ')}`)
       }
 
+      expect(missingInZhTW).toEqual([])
       expect(missingInEn).toEqual([])
       expect(missingInRu).toEqual([])
       expect(missingInZh).toEqual([])
@@ -247,6 +275,14 @@ describe('Language Switching', () => {
     await i18n.changeLanguage('zh-CN')
     expect(i18n.language).toBe('zh-CN')
     expect(i18n.t('confirm')).toBe('确认')
+  })
+
+  it('should switch to zh-TW and return Traditional Chinese text', async () => {
+    await i18n.changeLanguage('zh-TW')
+    expect(i18n.language).toBe('zh-TW')
+    expect(i18n.t('confirm')).toBe('確認')
+    expect(i18n.t('cancel')).toBe('取消')
+    expect(i18n.t('newProject.title', { ns: 'dialogs' })).toBe('新建小說項目')
   })
 
   it('should switch to en and return English for dialogs namespace', async () => {

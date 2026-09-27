@@ -14,14 +14,16 @@ export function formatRelativeTime(timestamp: number): string {
   if (minutes < 60) return i18n.t('minutesAgo', { ns: 'common', count: minutes })
   if (hours < 24) return i18n.t('hoursAgo', { ns: 'common', count: hours })
   if (days < 7) return i18n.t('daysAgo', { ns: 'common', count: days })
-  return new Date(timestamp).toLocaleDateString(i18n.language === 'en' ? 'en-US' : 'zh-CN', { month: 'short', day: 'numeric' })
+
+  const locale = i18n.language === 'en' ? 'en-US' : i18n.language === 'ru' ? 'ru-RU' : i18n.language === 'zh-TW' ? 'zh-TW' : 'zh-CN'
+  return new Date(timestamp).toLocaleDateString(locale, { month: 'short', day: 'numeric' })
 }
 
 /**
  * 格式化日期为本地化字符串
  */
 export function formatDate(timestamp: number, options?: Intl.DateTimeFormatOptions): string {
-  const locale = i18n.language === 'en' ? 'en-US' : 'zh-CN'
+  const locale = i18n.language === 'en' ? 'en-US' : i18n.language === 'ru' ? 'ru-RU' : i18n.language === 'zh-TW' ? 'zh-TW' : 'zh-CN'
   return new Date(timestamp).toLocaleString(locale, options ?? {
     year: 'numeric',
     month: '2-digit',
